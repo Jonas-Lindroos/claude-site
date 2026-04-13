@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Claude is awesome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f5f5f3;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 100px 40px;
+    }
+
+    .column {
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 60px;
+      font-weight: 700;
+      color: #1f1f1f;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    p {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #3a3a3a;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .back-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 14px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0px;
+      border-radius: 12px;
+      margin-bottom: 64px;
+      margin-left: -14px;
+      transform: translateY(0);
+      transition: transform 200ms ease, gap 200ms ease, background 200ms ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-4px);
+      gap: 6px;
+      background: #e0e0dd;
+    }
+
+    .back-btn .arrow {
+      display: inline-flex;
+      align-items: center;
+      overflow: hidden;
+      width: 0;
+      opacity: 0;
+      transition: width 200ms ease, opacity 200ms ease;
+    }
+
+    .back-btn:hover .arrow {
+      width: 16px;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="column">
+
+    <button class="back-btn" onclick="window.location.href='index.html'">
+      <span class="arrow">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="14" y1="8" x2="2" y2="8" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="7,3.5 2,8 7,12.5" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Back
+    </button>
+
+    <h1>Why Claude is awesome</h1>
+
+    <p>Claude is an AI assistant built by Anthropic with one clear goal: to be genuinely helpful, honest, and safe. But what makes Claude stand out isn't just what it can do — it's how it does it.</p>
+
+    <p>Claude thinks carefully. Rather than rushing to an answer, it considers the nuance in a question, acknowledges uncertainty when it exists, and takes the time to reason through complex problems step by step. Whether you're debugging code, drafting an essay, or working through a difficult decision, Claude engages with the full depth of what you're asking.</p>
+
+    <p>Claude is also a great collaborator. It adapts to your tone, matches the energy of the conversation, and treats every interaction as a genuine exchange — not a transaction. It pushes back when something seems off, asks for clarification when needed, and always aims to give you something useful rather than something safe and vague.</p>
+
+    <p>Most of all, Claude is built on the belief that AI should be a force for good. Every response is shaped by a commitment to honesty and a respect for the person on the other side of the screen. That's what makes Claude not just capable — but genuinely awesome.</p>
+
+  </div>
+</body>
+</html>
