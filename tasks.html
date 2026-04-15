@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f5f5f3;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .layout {
+      display: flex;
+      flex: 1;
+      align-items: stretch;
+    }
+
+    /* Main content area */
+    .main {
+      flex: 1;
+      padding: 100px 60px;
+    }
+
+    .back-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 14px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0px;
+      border-radius: 12px;
+      margin-bottom: 64px;
+      margin-left: -14px;
+      transform: translateY(0);
+      transition: transform 200ms ease, gap 200ms ease, background 200ms ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-4px);
+      gap: 6px;
+      background: #e0e0dd;
+    }
+
+    .back-btn .arrow {
+      display: inline-flex;
+      align-items: center;
+      overflow: hidden;
+      width: 0;
+      opacity: 0;
+      transition: width 200ms ease, opacity 200ms ease;
+    }
+
+    .back-btn:hover .arrow {
+      width: 16px;
+      opacity: 1;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 60px;
+      font-weight: 700;
+      color: #1f1f1f;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    /* Task cards */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 500px;
+    }
+
+    .task-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      padding: 28px 32px;
+      cursor: grab;
+      transition: box-shadow 200ms ease, transform 200ms ease, opacity 200ms ease;
+      user-select: none;
+    }
+
+    .task-card:active {
+      cursor: grabbing;
+    }
+
+    .task-card.dragging {
+      opacity: 0.4;
+      transform: scale(0.98);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .task-card h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1f1f1f;
+      margin: 0 0 10px;
+      line-height: 1.2;
+    }
+
+    .task-card p {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #3a3a3a;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Done column */
+    .done-column {
+      width: 320px;
+      min-height: 100vh;
+      background: #eceae7;
+      padding: 100px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      transition: background 150ms ease;
+    }
+
+    .done-column.drag-over {
+      background: #e2e0dc;
+    }
+
+    .done-column h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f1f1f;
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    .done-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .done-cards .task-card {
+      opacity: 0.6;
+    }
+
+    .done-cards .task-card h2 {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .drop-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #aaa;
+      text-align: center;
+      margin-top: auto;
+      padding-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+
+    <div class="main">
+      <button class="back-btn" onclick="window.location.href='index.html'">
+        <span class="arrow">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="14" y1="8" x2="2" y2="8" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+            <polyline points="7,3.5 2,8 7,12.5" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Back
+      </button>
+
+      <h1>Tasks</h1>
+
+      <div class="cards" id="task-list">
+        <div class="task-card" draggable="true">
+          <h2>Redesign landing page</h2>
+          <p>Update the hero section with new copy and swap out the background color to match the refreshed brand palette.</p>
+        </div>
+        <div class="task-card" draggable="true">
+          <h2>Write release notes</h2>
+          <p>Document the changes from the latest deploy and publish them to the changelog page.</p>
+        </div>
+        <div class="task-card" draggable="true">
+          <h2>Review pull requests</h2>
+          <p>Go through the three open PRs on GitHub and leave feedback before end of day.</p>
+        </div>
+        <div class="task-card" draggable="true">
+          <h2>Update dependencies</h2>
+          <p>Run npm audit and bump any outdated packages flagged as moderate or high severity.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="done-column" id="done-column">
+      <h3>Done</h3>
+      <div class="done-cards" id="done-list"></div>
+      <p class="drop-hint" id="drop-hint">Drag tasks here to mark as done</p>
+    </div>
+
+  </div>
+
+  <script>
+    let draggedCard = null;
+
+    function onDragStart(e) {
+      draggedCard = e.currentTarget;
+      setTimeout(() => draggedCard.classList.add('dragging'), 0);
+    }
+
+    function onDragEnd(e) {
+      e.currentTarget.classList.remove('dragging');
+      draggedCard = null;
+    }
+
+    document.querySelectorAll('.task-card').forEach(card => {
+      card.addEventListener('dragstart', onDragStart);
+      card.addEventListener('dragend', onDragEnd);
+    });
+
+    const doneColumn = document.getElementById('done-column');
+    const doneList = document.getElementById('done-list');
+    const taskList = document.getElementById('task-list');
+    const main = document.querySelector('.main');
+    const dropHint = document.getElementById('drop-hint');
+
+    function updateDropHint() {
+      dropHint.style.display = doneList.children.length > 0 ? 'none' : '';
+    }
+
+    doneColumn.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (draggedCard && taskList.contains(draggedCard)) {
+        doneColumn.classList.add('drag-over');
+      }
+    });
+    doneColumn.addEventListener('dragleave', e => {
+      if (!doneColumn.contains(e.relatedTarget)) doneColumn.classList.remove('drag-over');
+    });
+    doneColumn.addEventListener('drop', e => {
+      e.preventDefault();
+      doneColumn.classList.remove('drag-over');
+      if (draggedCard && taskList.contains(draggedCard)) {
+        doneList.appendChild(draggedCard);
+        updateDropHint();
+      }
+    });
+
+    main.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (draggedCard && doneList.contains(draggedCard)) {
+        main.classList.add('drag-over');
+      }
+    });
+    main.addEventListener('dragleave', e => {
+      if (!main.contains(e.relatedTarget)) main.classList.remove('drag-over');
+    });
+    main.addEventListener('drop', e => {
+      e.preventDefault();
+      main.classList.remove('drag-over');
+      if (draggedCard && doneList.contains(draggedCard)) {
+        taskList.appendChild(draggedCard);
+        updateDropHint();
+      }
+    });
+  </script>
+</body>
+</html>
