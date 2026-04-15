@@ -22,7 +22,6 @@
       align-items: stretch;
     }
 
-    /* Main content area */
     .main {
       flex: 1;
       padding: 100px 60px;
@@ -68,6 +67,13 @@
       opacity: 1;
     }
 
+    .heading-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
     h1 {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 60px;
@@ -75,18 +81,39 @@
       color: #1f1f1f;
       line-height: 1.1;
       letter-spacing: -0.02em;
-      margin-bottom: 48px;
+    }
+
+    .new-task-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+      background: transparent;
+      border: 1.5px solid #c8c8c4;
+      border-radius: 12px;
+      padding: 0 20px;
+      height: 44px;
+      cursor: pointer;
+      white-space: nowrap;
+      align-self: center;
+      margin-top: 8px;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+
+    .new-task-btn:hover {
+      background: #e0e0dd;
+      border-color: #b0b0ac;
     }
 
     /* Task cards */
     .cards {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: 16px;
-      max-width: 500px;
     }
 
     .task-card {
+      width: 280px;
       background: #ffffff;
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -96,9 +123,7 @@
       user-select: none;
     }
 
-    .task-card:active {
-      cursor: grabbing;
-    }
+    .task-card:active { cursor: grabbing; }
 
     .task-card.dragging {
       opacity: 0.4;
@@ -135,9 +160,7 @@
       transition: background 150ms ease;
     }
 
-    .done-column.drag-over {
-      background: #e2e0dc;
-    }
+    .done-column.drag-over { background: #e2e0dc; }
 
     .done-column h3 {
       font-family: 'Playfair Display', Georgia, serif;
@@ -155,9 +178,7 @@
       flex: 1;
     }
 
-    .done-cards .task-card {
-      opacity: 0.6;
-    }
+    .done-cards .task-card { opacity: 0.6; }
 
     .done-cards .task-card h2 {
       text-decoration: line-through;
@@ -172,6 +193,135 @@
       margin-top: auto;
       padding-top: 24px;
     }
+
+    .delete-zone {
+      margin: 24px -32px -60px;
+      padding: 24px 32px;
+      background: #e0ddd9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 300px;
+      transition: background 150ms ease;
+    }
+
+    .delete-zone.drag-over {
+      background: #d4d0cb;
+    }
+
+    .delete-zone span {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #999;
+      transition: color 150ms ease;
+    }
+
+    .delete-zone.drag-over span {
+      color: #666;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px;
+      width: 480px;
+      max-width: calc(100vw - 48px);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .modal h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1f1f1f;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal input,
+    .modal textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #1f1f1f;
+      background: #f5f5f3;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      padding: 14px 18px;
+      width: 100%;
+      outline: none;
+      transition: border-color 200ms ease;
+      resize: none;
+    }
+
+    .modal input::placeholder,
+    .modal textarea::placeholder { color: #aaa; }
+
+    .modal input:focus,
+    .modal textarea:focus { border-color: #c8c8c4; }
+
+    .modal textarea { height: 120px; }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn-cancel {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #888;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 16px;
+      height: 44px;
+      border-radius: 12px;
+      transition: background 200ms ease, color 200ms ease;
+    }
+
+    .btn-cancel:hover { background: #f0f0ee; color: #555; }
+
+    .btn-save {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: #1f1f1f;
+      border: none;
+      cursor: pointer;
+      padding: 0 28px;
+      height: 44px;
+      border-radius: 12px;
+      transition: background 200ms ease;
+    }
+
+    .btn-save:hover { background: #3a3a3a; }
   </style>
 </head>
 <body>
@@ -188,7 +338,10 @@
         Back
       </button>
 
-      <h1>Tasks</h1>
+      <div class="heading-row">
+        <h1>Tasks</h1>
+        <button class="new-task-btn" id="open-modal-btn">New task</button>
+      </div>
 
       <div class="cards" id="task-list">
         <div class="task-card" draggable="true">
@@ -214,13 +367,91 @@
       <h3>Done</h3>
       <div class="done-cards" id="done-list"></div>
       <p class="drop-hint" id="drop-hint">Drag tasks here to mark as done</p>
+      <div class="delete-zone" id="delete-zone">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="2,4 14,4" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M5 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6 7v5M10 7v5" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M3 4l.9 9a1 1 0 0 0 1 .9h6.2a1 1 0 0 0 1-.9L13 4" stroke="#999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Drop here to delete</span>
+      </div>
     </div>
 
   </div>
 
-  <script>
-    let draggedCard = null;
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h2 id="modal-title">New task</h2>
+      <div class="modal-fields">
+        <input type="text" id="task-title" placeholder="Title" maxlength="80" />
+        <textarea id="task-desc" placeholder="Description"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancel-btn">Cancel</button>
+        <button class="btn-save" id="save-btn">Save</button>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    // --- State ---
+    let draggedCard = null;
+    let editingCard = null;
+
+    // --- DOM refs ---
+    const doneColumn = document.getElementById('done-column');
+    const doneList   = document.getElementById('done-list');
+    const taskList   = document.getElementById('task-list');
+    const main       = document.querySelector('.main');
+    const dropHint   = document.getElementById('drop-hint');
+    const deleteZone = document.getElementById('delete-zone');
+    const overlay    = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const titleInput = document.getElementById('task-title');
+    const descInput  = document.getElementById('task-desc');
+
+    // --- localStorage ---
+    function saveTasks() {
+      const active = [...taskList.querySelectorAll('.task-card')].map(c => ({
+        title: c.querySelector('h2').textContent,
+        desc:  c.querySelector('p') ? c.querySelector('p').textContent : '',
+        done:  false
+      }));
+      const done = [...doneList.querySelectorAll('.task-card')].map(c => ({
+        title: c.querySelector('h2').textContent,
+        desc:  c.querySelector('p') ? c.querySelector('p').textContent : '',
+        done:  true
+      }));
+      localStorage.setItem('tasks', JSON.stringify([...active, ...done]));
+    }
+
+    function loadTasks() {
+      const saved = localStorage.getItem('tasks');
+      if (!saved) return;
+      taskList.innerHTML = '';
+      doneList.innerHTML = '';
+      JSON.parse(saved).forEach(t => {
+        const card = makeCard(t.title, t.desc);
+        if (t.done) doneList.appendChild(card);
+        else taskList.appendChild(card);
+      });
+      updateDropHint();
+    }
+
+    // --- Card factory ---
+    function makeCard(title, desc) {
+      const card = document.createElement('div');
+      card.className = 'task-card';
+      card.setAttribute('draggable', 'true');
+      card.innerHTML = `<h2>${title}</h2>${desc ? `<p>${desc}</p>` : ''}`;
+      attachDrag(card);
+      attachClick(card);
+      return card;
+    }
+
+    // --- Drag ---
     function onDragStart(e) {
       draggedCard = e.currentTarget;
       setTimeout(() => draggedCard.classList.add('dragging'), 0);
@@ -229,28 +460,90 @@
     function onDragEnd(e) {
       e.currentTarget.classList.remove('dragging');
       draggedCard = null;
+      saveTasks();
     }
 
-    document.querySelectorAll('.task-card').forEach(card => {
+    function attachDrag(card) {
       card.addEventListener('dragstart', onDragStart);
       card.addEventListener('dragend', onDragEnd);
+    }
+
+    // --- Click to edit ---
+    function attachClick(card) {
+      card.addEventListener('click', () => {
+        if (draggedCard) return;
+        editingCard = card;
+        const title = card.querySelector('h2').textContent;
+        const desc  = card.querySelector('p') ? card.querySelector('p').textContent : '';
+        modalTitle.textContent = 'Edit task';
+        titleInput.value = title;
+        descInput.value  = desc;
+        overlay.classList.add('open');
+        titleInput.focus();
+      });
+    }
+
+    // Attach to existing cards
+    document.querySelectorAll('.task-card').forEach(card => {
+      attachDrag(card);
+      attachClick(card);
     });
 
-    const doneColumn = document.getElementById('done-column');
-    const doneList = document.getElementById('done-list');
-    const taskList = document.getElementById('task-list');
-    const main = document.querySelector('.main');
-    const dropHint = document.getElementById('drop-hint');
-
+    // --- Helpers ---
     function updateDropHint() {
       dropHint.style.display = doneList.children.length > 0 ? 'none' : '';
     }
 
+    // --- Reordering within task grid ---
+    function getInsertionTarget(container, x, y) {
+      const cards = [...container.querySelectorAll('.task-card:not(.dragging)')];
+      let bestDist = Infinity;
+      let insertBefore = null;
+      for (let i = 0; i < cards.length; i++) {
+        const box = cards[i].getBoundingClientRect();
+        const cx = box.left + box.width / 2;
+        const cy = box.top + box.height / 2;
+        const onSameRow  = y >= box.top && y <= box.bottom;
+        const onRowAbove = y < box.top;
+        if (onSameRow && x < cx) {
+          const dist = Math.abs(x - cx);
+          if (dist < bestDist) { bestDist = dist; insertBefore = cards[i]; }
+        } else if (onRowAbove) {
+          const dist = Math.hypot(x - cx, y - cy);
+          if (dist < bestDist) { bestDist = dist; insertBefore = cards[i]; }
+        }
+      }
+      return insertBefore;
+    }
+
+    taskList.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (!draggedCard || !taskList.contains(draggedCard)) return;
+      const target = getInsertionTarget(taskList, e.clientX, e.clientY);
+      if (target) taskList.insertBefore(draggedCard, target);
+      else taskList.appendChild(draggedCard);
+    });
+
+    // --- Delete zone ---
+    deleteZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      deleteZone.classList.add('drag-over');
+    });
+    deleteZone.addEventListener('dragleave', e => {
+      if (!deleteZone.contains(e.relatedTarget)) deleteZone.classList.remove('drag-over');
+    });
+    deleteZone.addEventListener('drop', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      deleteZone.classList.remove('drag-over');
+      if (draggedCard) { draggedCard.remove(); updateDropHint(); saveTasks(); }
+    });
+
+    // --- Done column drop ---
     doneColumn.addEventListener('dragover', e => {
       e.preventDefault();
-      if (draggedCard && taskList.contains(draggedCard)) {
-        doneColumn.classList.add('drag-over');
-      }
+      if (draggedCard && taskList.contains(draggedCard)) doneColumn.classList.add('drag-over');
     });
     doneColumn.addEventListener('dragleave', e => {
       if (!doneColumn.contains(e.relatedTarget)) doneColumn.classList.remove('drag-over');
@@ -261,14 +554,14 @@
       if (draggedCard && taskList.contains(draggedCard)) {
         doneList.appendChild(draggedCard);
         updateDropHint();
+        saveTasks();
       }
     });
 
+    // --- Back to task list drop ---
     main.addEventListener('dragover', e => {
       e.preventDefault();
-      if (draggedCard && doneList.contains(draggedCard)) {
-        main.classList.add('drag-over');
-      }
+      if (draggedCard && doneList.contains(draggedCard)) main.classList.add('drag-over');
     });
     main.addEventListener('dragleave', e => {
       if (!main.contains(e.relatedTarget)) main.classList.remove('drag-over');
@@ -279,8 +572,56 @@
       if (draggedCard && doneList.contains(draggedCard)) {
         taskList.appendChild(draggedCard);
         updateDropHint();
+        saveTasks();
       }
     });
+
+    // --- Modal ---
+    document.getElementById('open-modal-btn').addEventListener('click', () => {
+      editingCard = null;
+      modalTitle.textContent = 'New task';
+      titleInput.value = '';
+      descInput.value  = '';
+      overlay.classList.add('open');
+      titleInput.focus();
+    });
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      titleInput.value = '';
+      descInput.value  = '';
+      editingCard = null;
+    }
+
+    document.getElementById('cancel-btn').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    document.getElementById('save-btn').addEventListener('click', () => {
+      const title = titleInput.value.trim();
+      const desc  = descInput.value.trim();
+      if (!title) { titleInput.focus(); return; }
+
+      if (editingCard) {
+        editingCard.querySelector('h2').textContent = title;
+        const existingP = editingCard.querySelector('p');
+        if (desc) {
+          if (existingP) existingP.textContent = desc;
+          else { const p = document.createElement('p'); p.textContent = desc; editingCard.appendChild(p); }
+        } else if (existingP) {
+          existingP.remove();
+        }
+      } else {
+        const card = makeCard(title, desc);
+        taskList.insertBefore(card, taskList.firstChild);
+      }
+
+      saveTasks();
+      closeModal();
+    });
+
+    // --- Init ---
+    loadTasks();
   </script>
 </body>
 </html>
