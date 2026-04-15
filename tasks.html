@@ -97,12 +97,16 @@
       white-space: nowrap;
       align-self: center;
       margin-top: 8px;
-      transition: background 200ms ease, border-color 200ms ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
     }
 
     .new-task-btn:hover {
-      background: #e0e0dd;
-      border-color: #b0b0ac;
+      background: #3a3a38;
+      border-color: #3a3a38;
+      color: #fff;
     }
 
     /* Task cards */
@@ -160,7 +164,7 @@
       transition: background 150ms ease;
     }
 
-    .done-column.drag-over { background: #e2e0dc; }
+    .done-column.drag-over { background: #d4f0e0; }
 
     .done-column h3 {
       font-family: 'Playfair Display', Georgia, serif;
@@ -190,8 +194,10 @@
       font-size: 13px;
       color: #aaa;
       text-align: center;
-      margin-top: auto;
-      padding-top: 24px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .delete-zone {
@@ -207,7 +213,7 @@
     }
 
     .delete-zone.drag-over {
-      background: #d4d0cb;
+      background: #3a3a38;
     }
 
     .delete-zone span {
@@ -218,7 +224,7 @@
     }
 
     .delete-zone.drag-over span {
-      color: #666;
+      color: #aaa;
     }
 
     /* Modal overlay */
@@ -340,7 +346,13 @@
 
       <div class="heading-row">
         <h1>Tasks</h1>
-        <button class="new-task-btn" id="open-modal-btn">New task</button>
+        <button class="new-task-btn" id="open-modal-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="7" y1="1" x2="7" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          New task
+        </button>
       </div>
 
       <div class="cards" id="task-list">
